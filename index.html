@@ -13,7 +13,12 @@
     <main>
       <div class="top">
         <h1>📋 Tugas Saya</h1>
-        <button class="pri" onclick="openForm()">+ Tambah tugas</button>
+        <span style="display: flex; gap: 6px"
+          ><button onclick="openBackup()">⇅ Cadangan</button
+          ><button class="pri" onclick="openForm()">
+            + Tambah tugas
+          </button></span
+        >
       </div>
       <div class="sub" id="sum"></div>
       <div class="bar">
@@ -70,6 +75,29 @@
         >
           <button onclick="dlg.close()">Batal</button
           ><button class="pri" onclick="save()">Simpan</button>
+        </div>
+      </dialog>
+      <dialog id="dlg2">
+        <b>Cadangan &amp; pindah data</b>
+        <div class="note" style="margin: 6px 0">
+          Di perangkat asal: tekan <b>Salin data</b>, lalu kirim teksnya ke diri
+          sendiri (WhatsApp/email). Di perangkat tujuan: tempel teks di kotak
+          ini, lalu tekan <b>Muat data</b>.
+        </div>
+        <textarea id="bk" rows="6" placeholder="Tempel data di sini"></textarea>
+        <div class="note" id="bkMsg" style="margin-top: 6px"></div>
+        <div
+          style="
+            display: flex;
+            gap: 8px;
+            justify-content: flex-end;
+            margin-top: 12px;
+            flex-wrap: wrap;
+          "
+        >
+          <button onclick="dlg2.close()">Tutup</button
+          ><button onclick="bkCopy()">Salin data</button
+          ><button class="pri" onclick="bkLoad()">Muat data</button>
         </div>
       </dialog>
     </main>

@@ -191,3 +191,44 @@ document.addEventListener("visibilitychange", () => {
     render();
   }
 });
+function openBackup() {
+  $("bk").value = "";
+  $("bkMsg").textContent = "";
+  $("dlg2").showModal();
+}
+function bkCopy() {
+  const s = JSON.stringify(T);
+  $("bk").value = s;
+  $("bk").select();
+  Promise.resolve()
+    .then(() => navigator.clipboard.writeText(s))
+    .then(() => {
+      $("bkMsg").textContent = "Data disalin. Tempel di perangkat lain.";
+    })
+    .catch(() => {
+      $("bkMsg").textContent =
+        "Salin manual: tekan lama teks di kotak, pilih Pilih semua lalu Salin.";
+    });
+}
+function bkLoad() {
+  try {
+    const a = JSON.parse($("bk").value.trim());
+    if (!Array.isArray(a) || a.some((x) => !x || !x.title)) throw 0;
+    if (
+      !confirm(
+        "Ganti semua tugas di perangkat ini dengan " +
+          a.length +
+          " tugas dari teks ini?",
+      )
+    )
+      return;
+    T = a;
+    store();
+    rollover();
+    render();
+    $("dlg2").close();
+  } catch (e) {
+    $("bkMsg").textContent =
+      "Teks tidak valid. Pastikan disalin utuh, tanpa ada yang terpotong.";
+  }
+}
